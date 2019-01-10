@@ -7,10 +7,10 @@
         {
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2018-07-01",
-            "name": "StorageAccountJWtest",
+            "name": "storageaccountjwtest",
             "location": "[resourceGroup().location]",
             "tags": {
-                "displayName": "StorageAccountJWtest"
+                "displayName": "storage account jw test"
             },
             "properties": {
                 "accountType": "Standard_LRS"
