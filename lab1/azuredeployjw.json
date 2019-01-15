@@ -3,12 +3,14 @@
     "contentVersion": "1.0.0.0",
     "parameters": 
     {
-        "storageAccount": 
+        "storageAccountPrefix": 
         {
             "type": "string",
+            "defaultValue": "stacctestjw",
+            "maxLength": 11,
             "metadata": 
             {
-                "description": "Name for storage account"
+                "description": "Name for storage account prefix"
             }
         },
         "accountType": 
@@ -21,11 +23,14 @@
                "Stanhdard_RAGRS"
            ],
            "metadata": {
-                "description": ""
+                "description": "SKU Type"
             }
         }
     },
-    "variables": {},
+    "variables": 
+    {
+        "storageAccount": "[tolower(concat(parameters('storageAccountPrefix'), uniqueString(resourceGroup().id)))]"
+    },
     "resources": [
         {
             "sku":
@@ -36,11 +41,11 @@
             "kind":"Storage",
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2018-07-01",
-            "name": "[parameters('storageAccount')]",
+            "name": "[variables('storageAccount')]",
             "location": "[resourceGroup().location]",
             "tags": 
             {
-                "displayName": "[parameters('storageAccount')]"
+                "displayName": "[variables('storageAccount')]"
             },
             "properties": 
             {
@@ -48,5 +53,12 @@
             }
         }
     ],
-    "outputs": {}
+    "outputs": 
+    {
+        "storageAccount":
+         {
+             "type": "string",
+             "value": "[variables('storageAccount')]"
+         }
+    }
 }
